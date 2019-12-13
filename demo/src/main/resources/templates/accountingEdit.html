@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Карточка учета времени сотрудника</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+    <div class="my-2 ml-2 mr-2">
+        <h3>Карточка учета времени сотрудника</h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10 p-2">
+                    <form action="#" th:action="@{/accountingCreate}" th:object="${accounting}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="projectId" class="col-form-label">Проект:</label>
+                                <select th:field="${accounting.projectId}" class="form-control" id="projectId" required>
+                                    <option value="">...</option>
+                                    <option th:each="project : ${projects}"
+                                            th:value="${project.id}"
+                                            th:utext="${project.name}"/>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="workerId" class="col-form-label">Сотрудник:</label>
+                                <select th:field="${accounting.workerId}" class="form-control" id="workerId" required>
+                                    <option value="">...</option>
+                                    <option th:each="worker : ${workers}"
+                                            th:value="${worker.id}"
+                                            th:utext="${worker.fullName}"/>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="task" class="col-form-label">Задача:</label>
+                                <input type="text" th:field="${accounting.task}" class="form-control" id="task" required/>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="date" class="col-form-label">Дата:</label>
+                                <input type="date" th:field="${accounting.date}" class="form-control" id="date" required/>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="hms" class="col-form-label">Затраченное время (в минутах):</label>
+                                <input type="number" th:field="${accounting.hms}" class="form-control" id="hms" min="1" max="480" required/>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" value="Submit" class="btn btn-primary">Сохранить</button>
+                                <button type="submit" class="btn btn-primary" onclick="javascript:window.location='/accountingList';">Отмена</button>
+                            </div>
+                            <input type="hidden" id="id" th:field="*{id}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
